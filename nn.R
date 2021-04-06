@@ -16,8 +16,6 @@ ts <- ts(tempOleo$Toleo[1:(24*60*2)], start = c(0,1), frequency = 60)
 
 autoplot(ts)
 
-forecast::ggseasonplot(ts)
-
 #demora um pouco - modelo auto-regressivo de rede neural
 model <- forecast::nnetar(ts)
 
@@ -27,16 +25,9 @@ autoplot(nnetforecast)
 
 
 #comparando predito com o real
-
-
 pred <- as.vector(nnetforecast$mean)
 real <- tempOleo$Toleo[2881:3080]
 
-zoo::plot.zoo(cbind(pred, real),
-         plot.type = "single",
-         col = c("blue", "black"))
+ts.plot(ts(real), ts(pred), gpars = list(col = c("black", "blue")))
 
-
-erro <- (pred-real)
-
-plot(erro)
+(pred-real) %>% plot()
