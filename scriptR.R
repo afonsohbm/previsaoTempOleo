@@ -104,5 +104,14 @@ compara %>%
   as.vector() %>%
   hist()
 
+compara %>%
+  transmute(Erro = real - predito) %>%
+  t() %>%
+  as.vector() %>%
+  mean()
 
-
+compara %>%
+  transmute(Erro = real - predito) %>%
+  t() %>%
+  as.vector() %>%
+  median()
